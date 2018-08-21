@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Button from '@material-ui/core/Button';
+import Note from './components/note.js'
 class App extends Component {
   render() {
     return (
@@ -10,15 +10,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <h1>
-          Hello world!
-        </h1>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button variant="contained" color="primary">
-          Hello World
-        </Button>
+        <Note />
       </div>
     );
   }
