@@ -4,12 +4,16 @@
   "private": true,
   "main": "main.js",
   "homepage": ".",
+  "author": "McCarthey",
+  "description": "Electron react demo",
   "dependencies": {
     "electron": "^2.0.7",
     "electron-packager": "^12.1.1",
+    "electron-winstaller": "^2.6.4",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "rimraf": "^2.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,6 +21,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron-start": "electron . dev",
-    "electron-build": "yarn build && electron-packager . --overwrite --ignore=node_modules --ignore=.gitignore --platform=win32 --arch=ia32 --out=out --icon=app.ico"
+    "electron-build": "yarn build && electron-packager . --overwrite --ignore=node_modules --ignore=.gitignore --platform=win32 --arch=ia32 --out=out --icon=app.ico",
+    "package:win": "node ./installer.js"
   }
 }
