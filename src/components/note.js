@@ -9,7 +9,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 class Note extends Component {
   state = {
-	checked: [0],
+		checked: [0],
+		toDoList: [0, 1, 2, 3, 4],
   };
   
   handleToggle = value => () => {
@@ -38,12 +39,12 @@ class Note extends Component {
 			margin="normal"
 			/>
 			<Button variant="contained" color="primary" className='note-add-btn'>
-				Primary
+				Add
 			</Button>
 		</div>
 		<div className="note-list">
 			<List>
-			{[0, 1, 2, 3].map(value => (
+			{this.state.toDoList.map(value => (
 				<ListItem
 				key={value}
 				dense
