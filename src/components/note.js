@@ -3,15 +3,15 @@ import './note.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import Checkbox from '@material-ui/core/Checkbox';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class Note extends Component {
   state = {
 		checked: [0],
 		itemToAdd: '',
-		toDoList: [0,1,2,3,4],
+		toDoList: [],
   };
   
   handleToggle = value => () => {
@@ -34,7 +34,8 @@ class Note extends Component {
 		console.log(this.state.itemToAdd)
 		if (!this.state.itemToAdd) return false;
 		this.setState(prevState => ({
-			toDoList: prevState.toDoList.concat(this.state.itemToAdd)
+			toDoList: prevState.toDoList.concat(this.state.itemToAdd),
+			itemToAdd: ''
 		}))
 		console.log(this.state.toDoList)
 	};
@@ -62,20 +63,19 @@ class Note extends Component {
 		<div className="note-list">
 			<List>
 			{this.state.toDoList.map(value => (
-				// <ListItem
-				// key={value}
-				// dense
-				// button
-				// onClick={this.handleToggle(value)}
-				// >
-				// <Checkbox
-				// 	checked={this.state.checked.indexOf(value) !== -1}
-				// 	tabIndex={-1}
-				// 	disableRipple
-				// />
-				// <ListItemText primary={`Line item ${value + 1}`} />
-				// </ListItem>
-				<p key={value}>{value}</p>
+				<ListItem
+				key={value}
+				dense
+				button
+				onClick={this.handleToggle(value)}
+				>
+				<Checkbox
+					checked={this.state.checked.indexOf(value) !== -1}
+					tabIndex={-1}
+					disableRipple
+				/>
+				<ListItemText primary={`Line item ${value}`} />
+				</ListItem>
 			))}
 			</List>
 		</div>
