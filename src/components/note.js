@@ -33,9 +33,9 @@ class Note extends Component {
 	handleAddItem = () => {
 		console.log(this.state.itemToAdd)
 		if (!this.state.itemToAdd) return false;
-		this.setState({
-			toDoList: this.state.toDoList.push(Number(this.state.itemToAdd))
-		})
+		this.setState(prevState => ({
+			toDoList: prevState.toDoList.concat(this.state.itemToAdd)
+		}))
 		console.log(this.state.toDoList)
 	};
 	
