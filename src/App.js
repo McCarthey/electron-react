@@ -6,7 +6,7 @@ import WbSunny from '@material-ui/icons/WbSunny'
 // for test and practice
 import HelloMessage from './test/hello'
 import Timer from './test/timer'
-import TodoApp from './test/todo'
+// import TodoApp from './test/todo'
 class App extends Component {
   render() {
     return (
@@ -16,7 +16,6 @@ class App extends Component {
           <HelloMessage name='McCarthey' />
           <h1 className="App-title">Have a nice day!</h1>
           <Timer />
-          <TodoApp />
         </header>
         <Note />
       </div>
