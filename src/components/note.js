@@ -60,7 +60,7 @@ class Note extends Component {
 				Add
 			</Button>
 		</div>
-		<div className="note-list">
+		<div className={this.state.toDoList.length!==0?"note-list":"note-empty"}>
 			<List>
 			{this.state.toDoList.map(value => (
 				<ListItem
@@ -74,7 +74,7 @@ class Note extends Component {
 					tabIndex={-1}
 					disableRipple
 				/>
-				<ListItemText primary={`Line item ${value}`} />
+				<ListItemText primary={value} />
 				</ListItem>
 			))}
 			</List>
