@@ -5,6 +5,7 @@ import WbSunny from '@material-ui/icons/WbSunny'
 
 // for test and practice
 import HelloMessage from './test/hello'
+import Timer from './test/timer'
 class App extends Component {
   render() {
     return (
@@ -13,6 +14,7 @@ class App extends Component {
           <WbSunny className="App-logo" style={{ fontSize: 64, color: '#f00' }} />
           <HelloMessage name='McCarthey' />
           <h1 className="App-title">Have a nice day!</h1>
+          <Timer />
         </header>
         <Note />
       </div>
