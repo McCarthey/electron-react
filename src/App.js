@@ -6,6 +6,7 @@ import WbSunny from '@material-ui/icons/WbSunny'
 // for test and practice
 import HelloMessage from './test/hello'
 import Timer from './test/timer'
+import MDConverter from './test/md-convert'
 // import TodoApp from './test/todo'
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Timer />
         </header>
         <Note />
+        <MDConverter />
       </div>
     );
   }

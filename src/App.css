@@ -26,3 +26,28 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* md */
+.markdown-section {
+  display: flex;
+}
+
+.markdown-editor {
+  width: 50%;
+}
+
+.markdown-editor #markdown-content {
+  display: block;
+  width: 80%;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.html-result {
+  width: 50%;
+  text-align: left;
+}
+
+.html-result h3 {
+  text-align: center;
+}
