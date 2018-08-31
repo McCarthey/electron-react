@@ -29,6 +29,7 @@ class App extends Component {
             <span><Link to="/Note">Note</Link></span>
             <br />
             <span><Link to="/md-converter">MD</Link></span>
+            <Route exact path="/" component={Note}/>
             <Route path="/Note" component={Note}/>
             <Route path='/md-converter' component={MDConverter}/>
           </div>
