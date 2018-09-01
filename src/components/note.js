@@ -13,31 +13,45 @@ class Note extends Component {
 		itemToAdd: '',
 		toDoList: [],
   };
-  
-  handleToggle = value => () => {
-		const { checked } = this.state;
-		const currentIndex = checked.indexOf(value);
-		const newChecked = [...checked];
-		
-		if(currentIndex === -1) {
-			newChecked.push(value);
-		} else {
-			newChecked.splice(currentIndex, 1);
-		}
-		
+	
+	componentDidMount() {
+		const jsonData = localStorage.getItem('RE_toDoList')
+		if (!jsonData) return
 		this.setState({
-			checked: newChecked,
+			toDoList: JSON.parse(jsonData)
+		})
+	}
+	
+	handleToggle = id => () => {
+		const listCopy = this.state.toDoList.slice()
+		// eslint-disable-next-line
+		listCopy.map(obj => {
+			if (obj.id === id) {
+				obj.done = !obj.done
+				// eslint-disable-next-line
+				return
+			}
+		})
+		this.saveInfo()
+		this.setState({
+			toDoList: listCopy
 		})
 	};
 	
-	handleAddItem = () => {
+	handleAddItem = async () => {
 		console.log(this.state.itemToAdd)
 		if (!this.state.itemToAdd) return false;
-		this.setState(prevState => ({
-			toDoList: prevState.toDoList.concat(this.state.itemToAdd),
+		const todoObj = {
+			id: this.state.toDoList.length,
+			todo: this.state.itemToAdd,
+			done: false
+		}
+		await this.setState(prevState => ({
+			toDoList: prevState.toDoList.concat([todoObj]),
 			itemToAdd: ''
 		}))
 		console.log(this.state.toDoList)
+		this.saveInfo()
 	};
 	
 	handleChange = name => event => {
@@ -45,7 +59,11 @@ class Note extends Component {
       [name]: event.target.value,
     });
   };
-  
+	
+	saveInfo = () => {
+		localStorage.setItem('RE_toDoList', JSON.stringify(this.state.toDoList))
+	}
+	
   render() {
     return (
 	  <div className="Note">
@@ -62,19 +80,19 @@ class Note extends Component {
 		</div>
 		<div className={this.state.toDoList.length!==0?"note-list":"note-empty"}>
 			<List>
-			{this.state.toDoList.map(value => (
+			{this.state.toDoList.map(obj => (
 				<ListItem
-				key={value}
+				key={obj.todo}
 				dense
 				button
-				onClick={this.handleToggle(value)}
+				onClick={this.handleToggle(obj.id)}
 				>
 				<Checkbox
-					checked={this.state.checked.indexOf(value) !== -1}
+					checked={obj.done}
 					tabIndex={-1}
 					disableRipple
 				/>
-				<ListItemText primary={value} />
+				<ListItemText primary={obj.todo} />
 				</ListItem>
 			))}
 			</List>
