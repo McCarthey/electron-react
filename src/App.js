@@ -13,7 +13,8 @@ import WbSunny from '@material-ui/icons/WbSunny'
 import HelloMessage from './test/hello'
 import Timer from './test/timer'
 import MDConverter from './test/md-convert'
-// import TodoApp from './test/todo'
+import TodoApp from './test/todo'
+
 class App extends Component {
   render() {
     return (
@@ -32,6 +33,7 @@ class App extends Component {
             <Route exact path="/" component={Note}/>
             <Route path="/Note" component={Note}/>
             <Route path='/md-converter' component={MDConverter}/>
+            <Route path='/test' component={TodoApp}/>
           </div>
         </Router>
       </div>

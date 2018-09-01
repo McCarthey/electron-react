@@ -58,10 +58,21 @@ class Note extends Component {
     this.setState({
       [name]: event.target.value,
     });
-  };
+	};
+	
+	handleClearAll = () => {
+		this.setState({
+			toDoList: []
+		})
+		this.clearInfo()
+	};
 	
 	saveInfo = () => {
 		localStorage.setItem('RE_toDoList', JSON.stringify(this.state.toDoList))
+	};
+	
+	clearInfo = () => {
+		localStorage.setItem('RE_toDoList', '')
 	}
 	
   render() {
@@ -96,7 +107,10 @@ class Note extends Component {
 				</ListItem>
 			))}
 			</List>
-		</div>
+			</div>
+			<Button onClick={this.handleClearAll} variant="contained" color="secondary" className='note-add-btn'>
+				Clear
+			</Button>	
       </div>
     );
   }
