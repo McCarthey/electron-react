@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import './App.css';
 import Note from './components/note.js'
+import NameDialog from './components/nameDialog.js'
 import WbSunny from '@material-ui/icons/WbSunny'
 
 // for test and practice
@@ -16,15 +17,32 @@ import MDConverter from './test/md-convert'
 import TodoApp from './test/todo'
 
 class App extends Component {
+  state = {
+    username: ''
+  }
+  
+  componentDidMount() {
+    const username = localStorage.getItem('RE_toDoList_name')
+    if (username) {
+      this.setState({ username })
+    }
+  }
+  
   render() {
+    let dialog
+    if (!this.state.username) {
+      dialog = <NameDialog />
+    }
+    
     return (
       <div className="App">
         <header className="App-header">
           <WbSunny className="App-logo" style={{ fontSize: 64, color: '#f00' }} />
-          <HelloMessage name='McCarthey' />
+          <HelloMessage name={this.state.username} />
           <h1 className="App-title">Have a nice day!</h1>
           <Timer />
         </header>
+        {dialog}
         <Router>
           <div>
             <span><Link to="/Note">Note</Link></span>
