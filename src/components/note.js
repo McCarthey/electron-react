@@ -6,6 +6,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 class Note extends Component {
   state = {
@@ -20,6 +22,19 @@ class Note extends Component {
 		this.setState({
 			toDoList: JSON.parse(jsonData)
 		})
+	}
+	
+	primaryKey = () => {
+		const listCopy = this.state.toDoList.slice()
+		if (listCopy.length === 0) {
+			return 0
+		}
+		let result = []
+		for (let i = 0; i < listCopy.length; i++) {
+			result.push(listCopy[i].id)
+		}
+		console.log(result, Math.max(...result) + 1)
+		return Math.max(...result) + 1
 	}
 	
 	handleToggle = id => () => {
@@ -42,7 +57,7 @@ class Note extends Component {
 		console.log(this.state.itemToAdd)
 		if (!this.state.itemToAdd) return false;
 		const todoObj = {
-			id: this.state.toDoList.length,
+			id: this.primaryKey(),
 			todo: this.state.itemToAdd,
 			done: false
 		}
@@ -55,9 +70,33 @@ class Note extends Component {
 	};
 	
 	handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
+		this.setState({
+			[name]: event.target.value,
+		});
+	};
+	
+	handleDelete = id => async () => {
+		let listCopy = this.state.toDoList.slice()
+		const index = this.findDeleteItem(id, listCopy)
+		console.log(index)
+		listCopy.splice(index, 1)
+		await this.setState({
+			toDoList: listCopy
+		})
+		this.saveInfo()
+	};
+	
+	findDeleteItem = (id, list) => {
+		// eslint-disable-next-line
+		console.log(id, list)
+		let result
+		for (let i = 0; i < list.length; i++) {
+			if (list[i].id === id) {
+				result = i
+				break
+			}
+		}
+		return result
 	};
 	
 	handleClearAll = () => {
@@ -93,17 +132,20 @@ class Note extends Component {
 			<List>
 			{this.state.toDoList.map(obj => (
 				<ListItem
-				key={obj.todo}
+				key={obj.id}
 				dense
 				button
-				onClick={this.handleToggle(obj.id)}
 				>
 				<Checkbox
 					checked={obj.done}
 					tabIndex={-1}
 					disableRipple
+					onClick={this.handleToggle(obj.id)}
 				/>
 				<ListItemText primary={obj.todo} />
+				<IconButton aria-label="Delete" onClick={this.handleDelete(obj.id)}>
+					<DeleteIcon />
+				</IconButton>
 				</ListItem>
 			))}
 			</List>
