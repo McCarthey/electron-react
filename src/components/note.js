@@ -8,12 +8,15 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Checkbox from '@material-ui/core/Checkbox'
 import DeleteIcon from '@material-ui/icons/Delete'
 import IconButton from '@material-ui/core/IconButton'
+import DeleteDialog from './dialog'
 
 class Note extends Component {
     state = {
         checked: [0],
         itemToAdd: '',
-        toDoList: []
+        toDoList: [],
+        deleteOpen: false,
+        chosenId: ''
     }
 
     componentDidMount() {
@@ -75,14 +78,21 @@ class Note extends Component {
         })
     }
 
-    handleDelete = id => async () => {
+    handleDelete = id => () => {
+        this.setState({deleteOpen: true, chosenId: id})
+    }
+
+    handleBtnDeleteCancel = () => {
+        this.setState({deleteOpen: false, chosenId: ''})
+    }
+
+    handleBtnDeleteOK = async () => {
+        const id = this.state.chosenId
+        this.setState({deleteOpen: false})
         let listCopy = this.state.toDoList.slice()
         const index = this.findDeleteItem(id, listCopy)
-        console.log(index)
         listCopy.splice(index, 1)
-        await this.setState({
-            toDoList: listCopy
-        })
+        await this.setState({toDoList: listCopy, chosenId: ''})
         this.saveInfo()
     }
 
@@ -139,6 +149,15 @@ class Note extends Component {
                 <Button onClick={this.handleClearAll} variant="contained" color="secondary" className="note-add-btn">
                     Clear
                 </Button>
+                <DeleteDialog
+                    title="Info"
+                    content="Are you sure you want to delete this?"
+                    btnCancel="cancel"
+                    btnOK="Sure"
+                    open={this.state.deleteOpen}
+                    btnCancelClick={this.handleBtnDeleteCancel}
+                    btnOKClick={this.handleBtnDeleteOK}
+                />
             </div>
         )
     }
