@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
+const Push = require('push.js')
 
 class HelloMessage extends Component {
 	componentDidMount() {
-		if (window.Notification && Notification.permission !== "denied") {
-		    Notification.requestPermission().then(() => {
-				const n = new Notification(`Hello ${this.props.name}`, {body: 'Have a nice day!'});
-				setTimeout(n.close.bind(n), 5000);
-		    })
-		}
+		Push.create('Hello world!', {
+			body: "How's it hangin?",
+			timeout: 4000,
+			onClick() {
+				window.focus()
+				this.close()
+			}
+		})
 	}
 	
 	render() {

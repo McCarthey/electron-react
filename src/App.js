@@ -27,6 +27,7 @@ class App extends Component {
         if (username) {
             this.setState({username})
         }
+        
     }
 
     render() {
